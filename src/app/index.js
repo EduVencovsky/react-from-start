@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import styles from './index.scss'
 
 function App(){
     debugger
     return (
-        <div>Hello World</div>
+        <div className={styles.main}>Hello World</div>
     )
 }
 
