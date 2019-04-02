@@ -1,31 +1,36 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-module.exports = {
+const merge = require('webpack-merge')
+const common = require('./webpack.config.common')
+const appVersion = require('./package.json').version
+
+module.exports = merge(common, {
     mode: 'development',
-    target: 'web',
     devtool: 'cheap-module-source-map',
     entry: path.resolve(__dirname, 'src', 'app'),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
-        publicPath: '/'
-    },
     resolve: {
         extensions: ['.js', '.jsx']
     },
     devServer: {
         stats: 'minimal',
+        open: true, // auto open dev-server on browser
         overlay: true,
         historyApiFallback: true,
-        disableHostCheck: true,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        https: false
+        // disableHostCheck: true, // this is dangerous 
+        headers: { 'Access-Control-Allow-Origin': '*' }, // this is also dangerous
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'app', 'index.html'),
             filename: 'index.html',
+        }),
+        new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            APP_VERSION: appVersion
         }),
     ],
     module: {
@@ -47,7 +52,7 @@ module.exports = {
                         options: {
                             importLoaders: 2,
                             modules: true,
-                            localIdentName: '[name]__[local]___[hash:base64:5]',
+                            localIdentName: '[path][name]__[local]',
                         },
                     },
                     {
@@ -59,9 +64,9 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|svg|jpg)$/,
+                test: /\.(jpg|jpeg|png|gif|svg)$/,
                 use: ["file-loader"]
             }
         ]
     }
-}
+})

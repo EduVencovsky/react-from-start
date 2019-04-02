@@ -12,6 +12,8 @@ Install WebPack packages
     npm i -D webpack
     npm i -D webpack-cli
     npm i -D webpack-dev-server
+    npm i -D webpack-merge
+    npm i -D clean-webpack-plugin
 
 Install Babel packages
 
@@ -46,6 +48,7 @@ Create folder `app` with `index.js` where will be the entry point of the client 
 
 Create `webpack.config.js` file
 
+## [PRODUCTION](https://webpack.js.org/guides/production/)
 
 ## [.mode](https://webpack.js.org/configuration/mode/)
 Choose mode (e.g. `development` or `production` )

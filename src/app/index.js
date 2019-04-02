@@ -3,9 +3,8 @@ import ReactDOM from "react-dom";
 import styles from './index.scss'
 
 function App(){
-    debugger
     return (
-        <div className={styles.main}>Hello World</div>
+        <div className={styles.hey}>Hello World</div>
     )
 }
 
