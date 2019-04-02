@@ -37,6 +37,7 @@ module.exports = {
         "no-unused-vars": "warn",
         "no-multiple-empty-lines": ["warn", { "max": 1 }],
         "jsx-quotes": ["warn", "prefer-single"],
+        "react/prop-types": "warn",
         "react/react-in-jsx-scope": "warn",
         "react/no-deprecated": "error",
         "react/jsx-props-no-multi-spaces": "warn",
