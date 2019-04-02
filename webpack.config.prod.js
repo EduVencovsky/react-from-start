@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webPackBundleAnalyzer = require('webpack-bundle-analyzer')
 
@@ -18,7 +18,7 @@ module.exports = merge(common, {
         filename: '[name].bundle.js',
         chunkFilename: '[chunkhash]_[name].js',
         publicPath: '/',
-    },   
+    },
     optimization: {
         runtimeChunk: 'single',
     },
@@ -85,7 +85,7 @@ module.exports = merge(common, {
             },
             {
                 test: /\.(jpg|jpeg|png|gif|svg)$/,
-                use: ["file-loader"]
+                use: ['file-loader']
             }
         ]
     },

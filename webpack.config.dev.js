@@ -37,7 +37,7 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                loader: 'babel-loader',
+                use: ['babel-loader', 'eslint-loader'],
                 exclude: /(node_modules)/,
             },
             {
@@ -65,7 +65,7 @@ module.exports = merge(common, {
             },
             {
                 test: /\.(jpg|jpeg|png|gif|svg)$/,
-                use: ["file-loader"]
+                use: ['file-loader']
             }
         ]
     }
