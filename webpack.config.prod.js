@@ -11,7 +11,6 @@ const appVersion = require('./package.json').version
 
 module.exports = merge(common, {
     mode: 'production',
-    target: 'web',
     devtool: false,
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -27,17 +26,19 @@ module.exports = merge(common, {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new webPackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+        new webPackBundleAnalyzer.BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            APP_VERSION: appVersion
+            APP_VERSION: appVersion,
         }),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].css',
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src', 'app', 'index.html'),
+            template: path.resolve(__dirname, 'src', 'index.html'),
             filename: 'index.html',
             // favicon: 'src/favicon.ico',
             minify: {
@@ -51,8 +52,8 @@ module.exports = merge(common, {
                 minifyJs: true, // uses UglifyJSPlugin
                 // minifyCSS: true,
                 minifyURLs: true,
-            }
-        }),
+            },
+        })
     ],
     module: {
         rules: [
@@ -62,31 +63,25 @@ module.exports = merge(common, {
                 exclude: /(node_modules)/,
             },
             {
-                test: /\.(css|scss)$/,
-                include: path.resolve(__dirname, 'src', 'app'),
+                test: /\.css$/,
+                include: path.resolve(__dirname, 'src'),
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2,
-                            modules: false,
-                            localIdentName: '[name]__[local]___[hash:base64:10]',
+                            modules: true,
+                            localIdentName:
+                                '[name]__[local]___[hash:base64:10]',
                             sourceMap: false,
                         },
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: false,
-                        },
-                    },
+                    }
                 ],
             },
             {
                 test: /\.(jpg|jpeg|png|gif|svg)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
             }
-        ]
+        ],
     },
 })

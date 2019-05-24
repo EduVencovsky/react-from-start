@@ -1,3 +1,4 @@
+// prettier-ignore
 module.exports = {
     "env": {
         "es6": true,
@@ -22,6 +23,9 @@ module.exports = {
             "version": "detect"
         }
     },
+    "globals": {
+        "API": "readonly",
+    },
     "rules": {
         "quotes": ["warn", "single"],
         "semi": ["warn", "never"],
@@ -30,13 +34,17 @@ module.exports = {
         "object-curly-spacing": ["warn", "always"],
         "eol-last": ["warn", "always"],
         "indent": ["warn", 4, { SwitchCase: 1 }],
+        "no-undef": "error",
         "no-console": "warn",
         "no-debugger": "warn",
         "no-eval": "error",
         "no-trailing-spaces": ["warn", { "ignoreComments": true }],
         "no-unused-vars": "warn",
         "no-multiple-empty-lines": ["warn", { "max": 1 }],
-        "jsx-quotes": ["warn", "prefer-single"],
+        "comma-dangle": ["warn", {
+            "objects": "always-multiline",
+        }],
+        "jsx-quotes": ["warn", "prefer-double"],
         "react/prop-types": "warn",
         "react/react-in-jsx-scope": "warn",
         "react/no-deprecated": "error",

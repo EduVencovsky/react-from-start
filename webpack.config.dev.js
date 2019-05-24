@@ -10,28 +10,27 @@ const appVersion = require('./package.json').version
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
-    entry: path.resolve(__dirname, 'src', 'app'),
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.css'],
     },
     devServer: {
         stats: 'minimal',
         open: true, // auto open dev-server on browser
         overlay: true,
         historyApiFallback: true,
-        // disableHostCheck: true, // this is dangerous 
+        // disableHostCheck: true, // this is dangerous
         headers: { 'Access-Control-Allow-Origin': '*' }, // this is also dangerous
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src', 'app', 'index.html'),
+            template: path.resolve(__dirname, 'src', 'index.html'),
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            APP_VERSION: appVersion
-        }),
+            APP_VERSION: appVersion,
+        })
     ],
     module: {
         rules: [
@@ -41,7 +40,7 @@ module.exports = merge(common, {
                 exclude: /(node_modules)/,
             },
             {
-                test: /\.(css|scss)$/,
+                test: /\.css$/,
                 include: path.resolve(__dirname, 'src', 'app'),
                 use: [
                     {
@@ -50,23 +49,16 @@ module.exports = merge(common, {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2,
                             modules: true,
-                            localIdentName: '[path][name]__[local]',
+                            localIdentName: '[path][name]_[local]',
                         },
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                        },
-                    },
+                    }
                 ],
             },
             {
-                test: /\.(jpg|jpeg|png|gif|svg)$/,
-                use: ['file-loader']
+                test: /\.(jpg|jpeg|png|gif|svg|eot|ttf|woff|woff2)$/,
+                use: ['file-loader'],
             }
-        ]
-    }
+        ],
+    },
 })
