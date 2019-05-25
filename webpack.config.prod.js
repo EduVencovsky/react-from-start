@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webPackBundleAnalyzer = require('webpack-bundle-analyzer')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const common = require('./webpack.config.common')
 const appVersion = require('./package.json').version
@@ -15,11 +16,12 @@ module.exports = merge(common, {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].bundle.js',
-        chunkFilename: '[chunkhash]_[name].js',
+        chunkFilename: '[name]_[chunkhash].js',
         publicPath: '/',
     },
     optimization: {
-        runtimeChunk: 'single',
+        // runtimeChunk: 'single',
+        minimizer: [new UglifyJsPlugin()],
     },
     performance: {
         hints: 'warning',
@@ -79,7 +81,7 @@ module.exports = merge(common, {
                 ],
             },
             {
-                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                test: /\.(jpg|jpeg|png|gif|svg|eot|ttf|woff|woff2)$/,
                 use: ['file-loader'],
             }
         ],
