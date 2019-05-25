@@ -1,6 +1,16 @@
 import React from 'react'
-import styles from './styles/styles.css'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+
+import UserPage from './views/UserPage/UserPage'
+
+import './styles/styles.css'
 
 export default function App() {
-    return <div className={styles.hey}>Hello World</div>
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" component={UserPage} />
+            </Switch>
+        </BrowserRouter>
+    )
 }

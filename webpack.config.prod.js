@@ -6,6 +6,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webPackBundleAnalyzer = require('webpack-bundle-analyzer')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const PurgecssPlugin = require('purgecss-webpack-plugin')
+// const glob = require('glob-all')
 
 const common = require('./webpack.config.common')
 const appVersion = require('./package.json').version
@@ -21,7 +23,7 @@ module.exports = merge(common, {
     },
     optimization: {
         // runtimeChunk: 'single',
-        minimizer: [new UglifyJsPlugin()],
+        // minimizer: [new UglifyJsPlugin()],
     },
     performance: {
         hints: 'warning',
@@ -56,6 +58,14 @@ module.exports = merge(common, {
                 minifyURLs: true,
             },
         })
+        // new PurgecssPlugin({
+        //     paths: [
+        //         path.resolve(__dirname, 'src', 'index.html'),
+        //         ...glob.sync(`${path.resolve(__dirname, 'src')}/*`, {
+        //             nodir: true,
+        //         })
+        //     ],
+        // })
     ],
     module: {
         rules: [
@@ -72,7 +82,7 @@ module.exports = merge(common, {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            modules: false,
                             localIdentName:
                                 '[name]__[local]___[hash:base64:10]',
                             sourceMap: false,

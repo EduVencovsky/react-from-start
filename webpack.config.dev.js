@@ -10,9 +10,6 @@ const appVersion = require('./package.json').version
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
-    resolve: {
-        extensions: ['.js', '.jsx', '.css'],
-    },
     devServer: {
         stats: 'minimal',
         open: true, // auto open dev-server on browser
@@ -49,7 +46,7 @@ module.exports = merge(common, {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            modules: false,
                             localIdentName: '[path][name]_[local]',
                         },
                     }
